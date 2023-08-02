@@ -12,7 +12,16 @@ struct DailyScrum: Identifiable {
     var title: String
     var attendees: [Attendee]
     var lengthInMinutes: Int
+    var lengthInMinutesAsDouble: Double {
+        get {
+            return Double(lengthInMinutes)
+        }
+        set {
+            lengthInMinutes = Int(newValue)
+        }
+    }
     var theme: Theme
+    var history: [History] = []
     
     // attendees [String]으로 받아서, map 을 이용해 [Attendee] 타입으로 바꿔주는 것
     init(id: UUID = UUID(), title: String, attendees: [String], lengthInMinutes: Int, theme: Theme) {
@@ -34,6 +43,9 @@ extension DailyScrum {
             self.id = id
             self.name = name
         }
+    }
+    static var emptyScrum: DailyScrum {
+        DailyScrum(title: "", attendees: [], lengthInMinutes: 5, theme: .sky)
     }
 }
 
